@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>CineMagic | Home</title>
+{% endblock %}
+
+{% block content %}
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+        {% for i in movcoursel %}
+            <li data-target="#demo" data-slide-to="{{forloop.counter}}" {% if forloop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ul>
+    
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+        {% for i in movcoursel %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ i.movie_poster.url }}"  alt="{{i.movie_name}}" class="h-100 w-100 ">
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-10 offset-2 m-5">
+                    <h1>Now Showcasing</h1>
+                </div>
+            </div>
+            <div class="row">
+
+                {% for movie in mov %}
+                <div class="col-12 col-md-6 col-lg-4 mb-5">
+                    <a href="/movies/{{movie.pk}}">
+                        <div class="card shadow" style="width: 18rem; margin:0px auto;">
+                            <img src="{{ movie.movie_poster.url }}" class="card-img-top" height="380px">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">{{ movie.movie_name }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
